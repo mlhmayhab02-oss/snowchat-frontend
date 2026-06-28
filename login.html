@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SNOWCHAT LOGIN</title>
+
+<link href="https://googleapis.com" rel="stylesheet">
+<link rel="stylesheet" href="https://cloudflare.com">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Cairo',sans-serif;
+}
+
+body{
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background:linear-gradient(180deg,#f5fbff,#e3f4ff);
+}
+
+/* الخلفية */
+.bg{
+position:fixed;
+inset:0;
+background:
+radial-gradient(circle at 30% 20%, rgba(255,255,255,.9), transparent 55%),
+radial-gradient(circle at 70% 70%, rgba(79,195,255,.25), transparent 60%);
+z-index:-2;
+}
+
+.snow{
+position:fixed;
+inset:0;
+pointer-events:none;
+z-index:-1;
+}
+
+.flake{
+position:absolute;
+top:-10px;
+color:white;
+opacity:.7;
+animation:fall linear infinite;
+}
+
+@keyframes fall{
+100%{transform:translateY(120vh);}
+}
+
+/* تمركز الشعار مع الكارد */
+.container{
+display:flex;
+flex-direction:column;
+align-items:center;
+}
+
+/* الشعار */
+.logo{
+width:90px;
+height:90px;
+border-radius:22px;
+background:rgba(255,255,255,.7);
+backdrop-filter:blur(20px);
+display:flex;
+justify-content:center;
+align-items:center;
+margin-bottom:15px;
+box-shadow:0 20px 60px rgba(79,195,255,.25);
+animation:float 3s ease-in-out infinite;
+}
+
+.ice-icon{
+font-size:32px;
+color:#2aa6e8;
+animation:spin 3s linear infinite;
+}
+
+@keyframes float{
+0%,100%{transform:translateY(0);}
+50%{transform:translateY(-10px);}
+}
+
+@keyframes spin{
+from{transform:rotate(0deg);}
+to{transform:rotate(360deg);}
+}
+
+/* الكارد */
+.card{
+width:320px;
+padding:25px;
+border-radius:22px;
+background:rgba(255,255,255,.6);
+backdrop-filter:blur(20px);
+border:1px solid rgba(79,195,255,.25);
+}
+
+.title{
+text-align:center;
+font-size:22px;
+font-weight:900;
+color:#2aa6e8;
+margin-bottom:15px;
+}
+
+.input{
+width:100%;
+margin:8px 0;
+padding:12px;
+border:none;
+border-radius:14px;
+outline:none;
+background:rgba(255,255,255,.7);
+}
+
+.btn{
+width:100%;
+padding:12px;
+margin-top:10px;
+border:none;
+border-radius:14px;
+background:linear-gradient(90deg,#2aa6e8,#6fd3ff);
+color:white;
+font-weight:800;
+cursor:pointer;
+}
+
+.link-btn{
+width:100%;
+padding:12px;
+margin-top:10px;
+border:none;
+border-radius:14px;
+background:rgba(255,255,255,.7);
+backdrop-filter:blur(10px);
+color:#2aa6e8;
+font-weight:800;
+cursor:pointer;
+transition:.2s;
+}
+
+.link-btn:hover{
+transform:translateY(-2px);
+background:rgba(255,255,255,.9);
+}
+
+.error{
+text-align:center;
+color:red;
+font-size:12px;
+margin-top:8px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="bg"></div>
+<div class="snow" id="snow"></div>
+
+<div class="container">
+
+<div class="logo">
+<i class="fa-solid fa-snowflake ice-icon"></i>
+</div>
+
+<div class="card">
+
+<div class="title">تسجيل الدخول</div>
+
+<input class="input" id="username" placeholder="اسم المستخدم">
+<input class="input" id="password" type="password" placeholder="كلمة المرور">
+
+<button class="btn" onclick="login()">دخول</button>
+
+<button class="link-btn" onclick="goRegister()">إنشاء حساب</button>
+
+<div class="error" id="error"></div>
+
+</div>
+
+</div>
+
+<script>
+
+function goRegister(){
+window.location.href = "register.html";
+}
+
+async function login(){
+
+const user=document.getElementById("username").value.trim();
+const pass=document.getElementById("password").value.trim();
+const error=document.getElementById("error");
+
+if(!user || !pass){
+error.innerText="املأ جميع الحقول";
+return;
+}
+
+try{
+
+const res = await fetch("https://onrender.com", {
+method:"POST",
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify({username:user,password:pass})
+});
+
+const data = await res.json();
+
+if(data.success){
+// ✅ حفظ اسم المستخدم في ذاكرة الهاتف/المتصفح ليتذكرك الشات
+localStorage.setItem("username", user);
+window.location.href="home.html";
+}else{
+error.innerText = data.message || "اسم المستخدم أو كلمة المرور خطأ";
+}
+
+}catch(e){
+error.innerText="خطأ في الاتصال بالسيرفر";
+}
+
+}
+
+/* snow */
+const snow=document.getElementById("snow");
+
+for(let i=0;i<50;i++){
+let f=document.createElement("div");
+f.className="flake";
+f.innerHTML="❄";
+f.style.left=Math.random()*100+"%";
+f.style.animationDuration=(3+Math.random()*5)+"s";
+snow.appendChild(f);
+}
+
+</script>
+
+</body>
+</html>

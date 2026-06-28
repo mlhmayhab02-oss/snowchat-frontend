@@ -1,0 +1,302 @@
+<html lang="ar" dir="rtl">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SNOWCHAT REGISTER</title>
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cloudflare.com">
+
+<link href="https://googleapis.com" rel="stylesheet">
+<link rel="stylesheet" href="https://cloudflare.com">
+
+<style>
+
+:root{
+--sky1:#f5fbff;
+--sky2:#e3f4ff;
+--deep:#2aa6e8;
+}
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Cairo',sans-serif;
+}
+
+body{
+height:100vh;
+overflow:hidden;
+background:linear-gradient(180deg,var(--sky1),var(--sky2));
+}
+
+.bg{
+position:fixed;
+inset:0;
+background:
+radial-gradient(circle at 30% 20%, rgba(255,255,255,.9), transparent 55%),
+radial-gradient(circle at 70% 70%, rgba(79,195,255,.25), transparent 60%);
+}
+
+.snow{
+position:fixed;
+inset:0;
+pointer-events:none;
+}
+
+.flake{
+position:absolute;
+top:-10px;
+color:white;
+opacity:.7;
+animation:fall linear infinite;
+}
+
+@keyframes fall{
+100%{transform:translateY(120vh);}
+}
+
+.center{
+position:absolute;
+inset:0;
+display:flex;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+}
+
+.logo{
+width:90px;
+height:90px;
+border-radius:22px;
+background:rgba(255,255,255,.7);
+backdrop-filter:blur(20px);
+display:flex;
+justify-content:center;
+align-items:center;
+margin-bottom:20px;
+box-shadow:0 20px 60px rgba(79,195,255,.25);
+animation:float 3s ease-in-out infinite;
+}
+
+@keyframes float{
+0%,100%{transform:translateY(0);}
+50%{transform:translateY(-10px);}
+}
+
+.ice-icon{
+font-size:32px;
+color:var(--deep);
+animation:spin 3s linear infinite;
+}
+
+@keyframes spin{
+from{transform:rotate(0deg);}
+to{transform:rotate(360deg);}
+}
+
+.card{
+width:340px;
+padding:25px;
+border-radius:22px;
+background:rgba(255,255,255,.6);
+backdrop-filter:blur(25px);
+border:1px solid rgba(79,195,255,.2);
+box-shadow:0 30px 80px rgba(0,0,0,.08);
+}
+
+.input{
+width:100%;
+margin:10px 0;
+padding:12px;
+border:none;
+border-radius:14px;
+background:rgba(255,255,255,.8);
+outline:none;
+font-size:14px;
+}
+
+.input:focus{
+box-shadow:0 0 0 2px rgba(79,195,255,.3);
+}
+
+/* 👁️ حقل كلمة المرور */
+.password-wrapper{
+position:relative;
+width:100%;
+margin:10px 0;
+}
+
+.password-wrapper .input{
+margin:0;
+padding-left:40px;
+}
+
+/* 👁️ العين الثلجية */
+.toggle-password{
+position:absolute;
+left:15px;
+top:50%;
+transform:translateY(-50%);
+cursor:pointer;
+font-size:16px;
+color:#6fd3ff;
+transition:0.2s;
+}
+
+.toggle-password:hover{
+opacity:0.7;
+}
+
+.btn{
+width:100%;
+padding:12px;
+border:none;
+border-radius:14px;
+background:linear-gradient(90deg,#2aa6e8,#6fd3ff);
+color:white;
+font-weight:800;
+cursor:pointer;
+margin-top:10px;
+transition:.3s;
+}
+
+.btn:hover{
+transform:translateY(-2px);
+}
+
+.error{
+color:red;
+font-size:12px;
+margin-top:8px;
+display:none;
+text-align:center;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="bg"></div>
+<div class="snow" id="snow"></div>
+
+<div class="center">
+
+<div class="logo">
+<i class="fa-solid fa-snowflake ice-icon"></i>
+</div>
+
+<div class="card">
+
+<h2 style="text-align:center;color:#2aa6e8;">إنشاء حساب</h2>
+
+<input class="input" id="username" placeholder="اسم المستخدم" maxlength="10">
+
+<div class="password-wrapper">
+<input class="input" id="password" type="password" placeholder="كلمة المرور" maxlength="10">
+<i class="fa-solid fa-eye toggle-password" onclick="togglePass('password', this)"></i>
+</div>
+
+<div class="password-wrapper">
+<input class="input" id="confirm_password" type="password" placeholder="تأكيد كلمة المرور" maxlength="10">
+<i class="fa-solid fa-eye toggle-password" onclick="togglePass('confirm_password', this)"></i>
+</div>
+
+<div class="error" id="error"></div>
+
+<button class="btn" id="btn" onclick="register()">إنشاء الحساب</button>
+
+</div>
+
+</div>
+
+<script>
+
+/* ❄ snow */
+const snow=document.getElementById("snow");
+for(let i=0;i<50;i++){
+let f=document.createElement("div");
+f.className="flake";
+f.innerHTML="❄";
+f.style.left=Math.random()*100+"%";
+f.style.animationDuration=(3+Math.random()*5)+"s";
+snow.appendChild(f);
+}
+
+/* 👁 toggle password */
+function togglePass(id, icon){
+const input=document.getElementById(id);
+
+if(input.type==="password"){
+input.type="text";
+icon.classList.remove("fa-eye");
+icon.classList.add("fa-eye-slash");
+}else{
+input.type="password";
+icon.classList.remove("fa-eye-slash");
+icon.classList.add("fa-eye");
+}
+}
+
+/* 🚀 register */
+async function register(){
+
+const u=document.getElementById("username").value.trim();
+const p=document.getElementById("password").value.trim();
+const cp=document.getElementById("confirm_password").value.trim();
+const error=document.getElementById("error");
+const btn=document.getElementById("btn");
+
+const regex=/^[A-Za-z0-9]+$/;
+
+if(!u||!p||!cp||u.length>10||p.length>10||!regex.test(u)||!regex.test(p)){
+error.style.display="block";
+error.innerText="المدخلات غير صحيحة";
+return;
+}
+
+if(p!==cp){
+error.style.display="block";
+error.innerText="كلمات المرور غير متطابقة";
+return;
+}
+
+btn.disabled=true;
+btn.innerText="جاري التسجيل...";
+
+try{
+
+const response = await fetch("https://onrender.com", {
+method:"POST",
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify({username:u,password:p})
+});
+
+const data=await response.json();
+
+if(data.success){
+window.location.href="login.html";
+}else{
+error.style.display="block";
+error.innerText=data.message;
+}
+
+}catch(e){
+error.style.display="block";
+error.innerText="خطأ في الاتصال بالسيرفر";
+}
+
+btn.disabled=false;
+btn.innerText="إنشاء الحساب";
+
+}
+
+</script>
+
+</body>
+</html>

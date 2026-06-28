@@ -1,0 +1,274 @@
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>ChatLove - Welcome Experience</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<style>
+/* كل تصميمك كما هو بدون أي تغيير */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, "Dubai", "Cairo", "Segoe UI", Tahoma, sans-serif;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    background-color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+.app-container {
+    width: 100%;
+    max-width: 450px;
+    height: 100vh;
+    background: linear-gradient(180deg, #f5fbff 0%, #e3f4ff 45%, #2aa6e8 100%);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 50px 28px 40px 28px;
+    overflow: hidden;
+    animation: fadeInScreen 0.6s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+
+@keyframes fadeInScreen {
+    from { opacity: 0; transform: translateY(20px) scale(0.97); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.brand-header-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.neon-logo-bubble {
+    width: 95px;
+    height: 95px;
+    background: linear-gradient(135deg, #2aa6e8 0%, #6fd3ff 100%);
+    border-radius: 50px 50px 8px 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    box-shadow: 0 0 25px rgba(255, 255, 255, 0.6), 0 10px 25px rgba(0, 0, 0, 0.15);
+    margin-bottom: 15px;
+    animation: logoPulseGlow 3s ease-in-out infinite;
+}
+
+.ice-icon {
+    font-size: 38px;
+    color: #ffffff;
+    animation: spin 3s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@keyframes logoPulseGlow {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.03); }
+}
+
+.brand-main-title {
+    font-size: 40px;
+    font-weight: 900;
+    color: #ffffff;
+}
+
+.brand-sub-slogan {
+    font-size: 14px;
+    color: rgba(255,255,255,0.9);
+    margin-top: 4px;
+    font-weight: bold;
+}
+
+.mid-hearts-scene {
+    position: relative;
+    width: 100%;
+    height: 140px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.twin-heart {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    filter: drop-shadow(0 12px 20px rgba(0,0,0,0.18));
+}
+
+.heart-pink {
+    left: 33%;
+    fill: #2aa6e8;
+    animation: floatPinkHeart 4s ease-in-out infinite;
+}
+
+.heart-blue {
+    right: 33%;
+    fill: #6fd3ff;
+    animation: floatBlueHeart 4.5s ease-in-out infinite;
+}
+
+@keyframes floatPinkHeart {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+@keyframes floatBlueHeart {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.bottom-controls-block {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.main-promo-text {
+    font-size: 20px;
+    color: #ffffff;
+    font-weight: 900;
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.glass-action-btn {
+    width: 100%;
+    padding: 16px;
+    background: linear-gradient(to right, rgba(42,166,232,0.85), rgba(111,211,255,0.85));
+    border-radius: 30px;
+    color: #fff;
+    font-size: 19px;
+    font-weight: 900;
+    cursor: pointer;
+}
+
+.register-redirect-text {
+    font-size: 15px;
+    color: #ffffff;
+    font-weight: bold;
+    cursor: pointer;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.divider-row {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.divider-line {
+    flex: 1;
+    height: 1px;
+    background: rgba(255,255,255,0.35);
+}
+
+.divider-label {
+    font-size: 14px;
+    color: rgba(255,255,255,0.9);
+    font-weight: bold;
+}
+
+.social-buttons-row {
+    display: flex;
+    gap: 20px;
+}
+
+.circle-social-btn {
+    width: 58px;
+    height: 58px;
+    background: #fff;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-text-fallback {
+    font-size: 24px;
+    font-weight: 900;
+}
+
+.g-color { color: #ea4335; }
+.f-color { color: #1877f2; }
+
+</style>
+</head>
+
+<body>
+
+<div class="app-container">
+
+    <div class="brand-header-block">
+        <div class="neon-logo-bubble">
+
+            <!-- ✅ الأيقونة مأخوذة من كودك الثاني -->
+            <div class="ice-icon"><i class="fa-solid fa-snowflake"></i></div>
+
+        </div>
+
+        <div class="brand-main-title">snowchat</div>
+        <div class="brand-sub-slogan">Meet • Chat • Connect</div>
+    </div>
+
+    <div class="mid-hearts-scene">
+        <svg class="twin-heart heart-pink" viewBox="0 0 24 24">
+            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+        </svg>
+
+        <svg class="twin-heart heart-blue" viewBox="0 0 24 24">
+            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+        </svg>
+    </div>
+
+    <div class="bottom-controls-block">
+        <div class="main-promo-text">اكتشف أصدقاء جدد في غرف الدردشة</div>
+
+        <button class="glass-action-btn" onclick="location.href='login.html'">
+            ادخل عالمنا المتجمد 🥶
+        </button>
+
+        <div class="register-redirect-text" onclick="location.href='register.html'">
+            ليس لديك حساب؟ <b>أنشئ حسابك وادخل</b>
+        </div>
+
+        <div class="divider-row">
+            <div class="divider-line"></div>
+            <div class="divider-label">أو عبر التواصل</div>
+            <div class="divider-line"></div>
+        </div>
+
+        <div class="social-buttons-row">
+            <div class="circle-social-btn">
+                <span class="btn-text-fallback g-color">G</span>
+            </div>
+            <div class="circle-social-btn">
+                <span class="btn-text-fallback f-color">F</span>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

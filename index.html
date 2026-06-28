@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SNOWCHAT</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;600;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<style>
+
+/* نفس تصميمك تمامًا بدون تغيير */
+:root{--sky1:#f5fbff;--sky2:#e3f4ff;--deep:#2aa6e8;}
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Cairo',sans-serif;
+}
+
+body{
+overflow:hidden;
+background:linear-gradient(180deg,var(--sky1),var(--sky2));
+}
+
+.bg{
+position:fixed;
+inset:0;
+background:
+radial-gradient(circle at 30% 20%, rgba(255,255,255,.9), transparent 55%),
+radial-gradient(circle at 70% 70%, rgba(79,195,255,.25), transparent 60%);
+}
+
+.snow{
+position:fixed;
+inset:0;
+pointer-events:none;
+}
+
+.flake{
+position:absolute;
+top:-10px;
+color:white;
+opacity:.75;
+animation:fall linear infinite;
+}
+
+@keyframes fall{
+100%{
+transform:translateY(120vh) translateX(20px);
+}
+}
+
+.center{
+position:absolute;
+inset:0;
+display:flex;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+}
+
+/* LOGO */
+.logo{
+width:140px;
+height:140px;
+border-radius:35px;
+background:rgba(255,255,255,.75);
+backdrop-filter:blur(25px);
+display:flex;
+justify-content:center;
+align-items:center;
+box-shadow:0 30px 80px rgba(79,195,255,.25);
+
+position:relative;
+animation:dropSlow 4s ease-out, float 3s ease-in-out infinite 4s;
+}
+
+@keyframes dropSlow{
+0%{transform:translateY(-300px);opacity:0;}
+100%{transform:translateY(0);opacity:1;}
+}
+
+@keyframes float{
+0%,100%{transform:translateY(0);}
+50%{transform:translateY(-10px);}
+}
+
+.ice-icon{
+font-size:44px;
+color:#2aa6e8;
+animation:spin 3s linear infinite;
+}
+
+@keyframes spin{
+from{transform:rotate(0deg);}
+to{transform:rotate(360deg);}
+}
+
+.title{
+margin-top:18px;
+font-size:22px;
+font-weight:900;
+color:var(--deep);
+}
+
+.sub{
+margin-top:6px;
+font-size:12px;
+opacity:.5;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="bg"></div>
+<div class="snow" id="snow"></div>
+
+<div class="center">
+
+<div class="logo">
+<div class="ice-icon"><i class="fa-solid fa-snowflake"></i></div>
+</div>
+
+<div class="title">SNOWCHAT</div>
+<div class="sub">a cold social world</div>
+
+</div>
+
+<script>
+
+/* snow */
+const snow=document.getElementById("snow");
+
+for(let i=0;i<120;i++){
+let f=document.createElement("div");
+f.className="flake";
+f.innerHTML="❄";
+f.style.left=Math.random()*100+"%";
+f.style.animationDuration=(5+Math.random()*7)+"s";
+snow.appendChild(f);
+}
+
+/* ⏳ انتقال بعد 7 ثواني */
+setTimeout(()=>{
+window.location.href = "hot.html";
+}, 7000);
+
+</script>
+
+</body>
+</html>
