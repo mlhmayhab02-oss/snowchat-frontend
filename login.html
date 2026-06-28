@@ -9,6 +9,9 @@
 <link href="https://googleapis.com" rel="stylesheet">
 <link rel="stylesheet" href="https://cloudflare.com">
 
+<!-- ✅ هذا السطر فقط الذي تم إضافته لتعمل أيقونة الثلج وتدور -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
 <style>
 
 *{
@@ -77,6 +80,7 @@ box-shadow:0 20px 60px rgba(79,195,255,.25);
 animation:float 3s ease-in-out infinite;
 }
 
+/* ❄️ الآن الثلجة ستدور */
 .ice-icon{
 font-size:32px;
 color:#2aa6e8;
@@ -209,7 +213,7 @@ return;
 
 try{
 
-const res = await fetch("https://ehab-server-1.onrender.com", {
+const res = await fetch("https://ehab-server-1.onrender.com/api/login", {
 method:"POST",
 headers:{
 "Content-Type":"application/json"
@@ -220,9 +224,15 @@ body:JSON.stringify({username:user,password:pass})
 const data = await res.json();
 
 if(data.success){
-// ✅ حفظ اسم المستخدم في ذاكرة الهاتف/المتصفح ليتذكرك الشات
+
 localStorage.setItem("username", user);
+
+if(data.user){
+localStorage.setItem("userData", JSON.stringify(data.user));
+}
+
 window.location.href="home.html";
+
 }else{
 error.innerText = data.message || "اسم المستخدم أو كلمة المرور خطأ";
 }
