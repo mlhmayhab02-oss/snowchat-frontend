@@ -91,6 +91,99 @@ transform:translateY(-6px);
 box-shadow:0 6px 18px rgba(42,166,232,.2);
 }
 
+/* ❄️ MODAL */
+.modal{
+position:fixed;
+inset:0;
+background:rgba(10,20,40,0.35);
+backdrop-filter:blur(12px);
+display:none;
+justify-content:center;
+align-items:center;
+z-index:9999;
+}
+
+.modal-card{
+width:320px;
+padding:22px;
+border-radius:22px;
+background:linear-gradient(145deg,
+rgba(255,255,255,0.75),
+rgba(210,240,255,0.35)
+);
+backdrop-filter:blur(25px);
+text-align:center;
+box-shadow:
+0 25px 60px rgba(0,0,0,0.15),
+inset 0 0 20px rgba(255,255,255,0.4);
+border:1px solid rgba(255,255,255,0.4);
+animation:popIn .45s ease;
+position:relative;
+overflow:hidden;
+}
+
+/* shine */
+.modal-card::before{
+content:"";
+position:absolute;
+top:-50%;
+left:-50%;
+width:200%;
+height:200%;
+background:linear-gradient(120deg,transparent,rgba(255,255,255,0.4),transparent);
+transform:rotate(25deg);
+animation:shine 3s linear infinite;
+}
+
+.modal-card h2{color:#2aa6e8;margin-bottom:8px;}
+.modal-card p{font-size:13px;margin-bottom:18px;color:#2c3e50;opacity:0.85;}
+
+/* زر احترافي */
+.modal-card button{
+position:relative;
+overflow:hidden;
+padding:12px 20px;
+border:none;
+border-radius:14px;
+background:linear-gradient(90deg,#2aa6e8,#6fd3ff);
+color:white;
+font-weight:bold;
+cursor:pointer;
+box-shadow:0 10px 25px rgba(42,166,232,0.3);
+transition:0.2s;
+}
+
+.modal-card button:active{
+transform:scale(0.97);
+}
+
+/* spinner */
+.spinner{
+display:inline-block;
+width:14px;
+height:14px;
+border:2px solid rgba(255,255,255,0.4);
+border-top-color:white;
+border-radius:50%;
+margin-left:8px;
+animation:spin 0.7s linear infinite;
+vertical-align:middle;
+}
+
+@keyframes spin{
+to{transform:rotate(360deg);}
+}
+
+@keyframes popIn{
+from{transform:scale(0.85) translateY(20px);opacity:0;}
+to{transform:scale(1) translateY(0);opacity:1;}
+}
+
+@keyframes shine{
+0%{transform:translateX(-100%) rotate(25deg);}
+100%{transform:translateX(100%) rotate(25deg);}
+}
+
 </style>
 </head>
 
@@ -127,10 +220,75 @@ box-shadow:0 6px 18px rgba(42,166,232,.2);
 
 </div>
 
+<!-- ❄️ MODAL -->
+<div id="profileModal" class="modal">
+  <div class="modal-card">
+    <h2>أكمل ملفك الشخصي</h2>
+    <p>يجب إكمال إعداد الملف الشخصي قبل استخدام SNOWCHAT</p>
+
+    <button id="profileBtn" onclick="goProfile(event)">
+      إكمال الآن
+    </button>
+  </div>
+</div>
+
 <script>
+
 function go(p){
 window.location.href = window.location.origin + "/" + p;
 }
+
+/* زر احترافي جداً */
+function goProfile(e){
+
+const btn = document.getElementById("profileBtn");
+const card = document.querySelector(".modal-card");
+
+/* ripple effect */
+const ripple = document.createElement("span");
+ripple.style.position="absolute";
+ripple.style.width="20px";
+ripple.style.height="20px";
+ripple.style.background="rgba(255,255,255,0.6)";
+ripple.style.borderRadius="50%";
+ripple.style.transform="scale(0)";
+ripple.style.animation="ripple 0.6s linear";
+ripple.style.left=(e.offsetX)+"px";
+ripple.style.top=(e.offsetY)+"px";
+btn.appendChild(ripple);
+setTimeout(()=>ripple.remove(),600);
+
+/* state */
+btn.innerHTML = 'جاري التحويل <span class="spinner"></span>';
+btn.disabled = true;
+
+/* card feedback */
+card.style.transform = "scale(0.98)";
+card.style.transition = "0.2s";
+
+/* انتقال */
+setTimeout(()=>{
+window.location.href = "profile.html";
+}, 900);
+
+}
+
+/* عرض المودال */
+document.addEventListener("DOMContentLoaded", function(){
+document.getElementById("profileModal").style.display="flex";
+});
+
+/* ripple keyframes */
+const style = document.createElement("style");
+style.innerHTML = `
+@keyframes ripple {
+to {
+transform: scale(10);
+opacity: 0;
+}
+}`;
+document.head.appendChild(style);
+
 </script>
 
 </body>
